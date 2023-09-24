@@ -1,0 +1,10 @@
+main {
+    background-image: url("../../../public/bg-image.avif")
+}
+
+ion-icon {
+    font-size: 48px;
+    color: #9ac3e7;
+    transform: rotate(-45deg);
+    margin-left: 8px;
+}
