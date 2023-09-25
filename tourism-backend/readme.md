@@ -7,10 +7,12 @@
 4. Go to the project folder /src/main/resources/application.properties
 - Insert the following text on it:
 
+```
 spring.datasource.url=jdbc:postgresql://localhost:5432/tourism
 spring.datasource.username=postgres
 spring.datasource.password=password
 spring.datasource.driver-class-name=org.postgresql.Driver
+```
 
 api.security.token.secret=${JWT_SECRET:jwt-secret-key}
 
