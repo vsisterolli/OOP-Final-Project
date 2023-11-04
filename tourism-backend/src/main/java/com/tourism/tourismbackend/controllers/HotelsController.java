@@ -24,7 +24,7 @@ public class HotelsController {
     }
 
     @PostMapping
-    public ResponseEntity createHotels(@RequestBody @Valid HotelDTO data){
+    public ResponseEntity createHotel(@RequestBody @Valid HotelDTO data){
         if(repository.findByAddress(data.address()) != null)
             return ResponseEntity.badRequest().build();
 
