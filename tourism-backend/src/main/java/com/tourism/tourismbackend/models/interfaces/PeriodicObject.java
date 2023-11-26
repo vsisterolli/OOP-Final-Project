@@ -11,4 +11,20 @@ public abstract class PeriodicObject {
     protected Date iniDate;
     @Column(nullable = false)
     protected Date endDate;
+
+    public Date getIniDate() {
+        return iniDate;
+    }
+
+    public void setIniDate(Date iniDate) {
+        this.iniDate = iniDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
 }

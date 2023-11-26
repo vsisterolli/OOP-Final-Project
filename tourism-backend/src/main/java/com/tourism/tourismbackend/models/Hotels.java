@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Hotels {
+
     public Hotels(String name, int stars, String address) {
         this.name = name;
         this.stars = stars;
@@ -29,14 +30,6 @@ public class Hotels {
 
     @Column(nullable = false)
     private String address;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
