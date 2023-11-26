@@ -1,6 +1,7 @@
 package com.tourism.tourismbackend.controllers;
 
 import com.tourism.tourismbackend.dtos.ActivityDTO;
+import com.tourism.tourismbackend.dtos.DeleteDTO;
 import com.tourism.tourismbackend.models.Activities;
 import com.tourism.tourismbackend.repository.ActivitiesRepository;
 import jakarta.validation.Valid;
@@ -29,6 +30,12 @@ public class ActivitiesController {
 
         this.repository.save(newActivity);
 
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity register(@RequestBody @Valid DeleteDTO data) {
+        this.repository.deleteById(data.id());
         return ResponseEntity.ok().build();
     }
 }
