@@ -3,7 +3,7 @@ package com.tourism.tourismbackend.controllers;
 
 import com.tourism.tourismbackend.dtos.TravelPackageDTO;
 import com.tourism.tourismbackend.models.TravelPackages;
-import com.tourism.tourismbackend.repository.TravelPackageRepository;
+import com.tourism.tourismbackend.repository.TravelPackagesRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/travels")
+@RequestMapping("/packages")
 public class TravelPackagesController{
     @Autowired
-    private TravelPackageRepository repository;
+    private TravelPackagesRepository repository;
 
     @GetMapping
     public List<TravelPackages> getTravelPackages() {
