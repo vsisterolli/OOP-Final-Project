@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Hotels {
-    public Hotels(String name, int stars,String address) {
+
+    public Hotels(String name, int stars, String address) {
         this.name = name;
         this.stars = stars;
         this.address = address;
