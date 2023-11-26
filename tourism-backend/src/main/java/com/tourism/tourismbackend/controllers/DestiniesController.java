@@ -1,5 +1,6 @@
 package com.tourism.tourismbackend.controllers;
 
+import com.tourism.tourismbackend.dtos.DeleteDTO;
 import com.tourism.tourismbackend.dtos.DestinyDTO;
 import com.tourism.tourismbackend.dtos.RegisterDTO;
 import com.tourism.tourismbackend.models.Destinies;
@@ -35,6 +36,12 @@ public class DestiniesController {
 
         this.repository.save(newDestiny);
 
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity register(@RequestBody @Valid DeleteDTO data) {
+        this.repository.deleteById(data.id());
         return ResponseEntity.ok().build();
     }
 }
