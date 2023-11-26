@@ -1,26 +1,29 @@
 package com.tourism.tourismbackend.models;
 
+
 import com.tourism.tourismbackend.models.interfaces.PeriodicObject;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
 @Data
-@Table(name = "availabilities")
+@Table(name = "Reservation")
 @Entity
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Availabilities extends PeriodicObject {
-    public Availabilities(Date iniDate, Date endDate, int qntd_disponivel)
-    {
+public class Reservation extends PeriodicObject {
+    public Reservation(Date iniDate, Date endDate, Long userId, Long travelpackageId){
         if(iniDate.after(endDate)) {
             throw new IllegalArgumentException("Invalid dates: iniDate must be before endDate");
         }
+
         this.iniDate = iniDate;
         this.endDate = endDate;
-        this.qntd_disponivel = qntd_disponivel;
+        this.userId = userId;
+        this.travelpackageId = travelpackageId;
     }
 
     @Id
@@ -28,13 +31,24 @@ public class Availabilities extends PeriodicObject {
     private Long id;
 
     @Column(nullable = false)
-    private int qntd_disponivel;
+    private Long userId;
 
-    public int getQntd_disponivel() {
-        return this.qntd_disponivel;
+    @Column(nullable = false)
+    private Long travelpackageId;
+
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setQntd_disponivel(int qntd_disponivel) {
-        this.qntd_disponivel = qntd_disponivel;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getTravelpackageId() {
+        return travelpackageId;
+    }
+
+    public void setTravelpackageId(Long travelpackageId) {
+        this.travelpackageId = travelpackageId;
     }
 }
