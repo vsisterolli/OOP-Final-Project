@@ -1,6 +1,7 @@
 package com.tourism.tourismbackend.controllers;
 
 
+import com.tourism.tourismbackend.dtos.DeleteDTO;
 import com.tourism.tourismbackend.dtos.PremiumTravelPackageDTO;
 import com.tourism.tourismbackend.models.Availabilities;
 import com.tourism.tourismbackend.models.PremiumTravelPackages;
@@ -19,7 +20,7 @@ public class PremiumTravelPackagesController{
     @Autowired
     private PremiumTravelPackagesRepository repository;
     @Autowired
-    private PremiumPackageService premiumPackagService;
+    private PremiumPackageService premiumPackageService;
 
     @GetMapping
     public List<PremiumTravelPackages> getPremiumTravelPackages() {
@@ -29,8 +30,8 @@ public class PremiumTravelPackagesController{
     public ResponseEntity createPremiumTravelPackage(@RequestBody @Valid PremiumTravelPackageDTO data){
 
         try {
-            premiumPackagService.validateData(data);
-            PremiumTravelPackages newTravelPackage = new PremiumTravelPackages(data.price(), data.destinyId(), data.hotelId(),data.activitiesId(),data.availabilitiesId());
+            premiumPackageService.validateData(data);
+            PremiumTravelPackages newTravelPackage = new PremiumTravelPackages(data.price(), data.destinyId(), data.hotelId(),data.activitiesId(),data.availabilitiesId(),data.image());
             this.repository.save(newTravelPackage);
             return ResponseEntity.ok().build();
         } catch(IllegalArgumentException e) {
@@ -38,4 +39,9 @@ public class PremiumTravelPackagesController{
         }
     }
 
+    @DeleteMapping
+    public ResponseEntity register(@RequestBody @Valid DeleteDTO data) {
+        this.repository.deleteById(data.id());
+        return ResponseEntity.ok().build();
+    }
 }

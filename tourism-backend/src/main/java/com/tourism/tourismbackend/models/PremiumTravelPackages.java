@@ -15,8 +15,8 @@ import java.util.Optional;
 @DiscriminatorValue("PREMIUM")
 public class PremiumTravelPackages extends TravelPackages {
 
-    public PremiumTravelPackages(double price, Long destinyId, Long hotelId, ArrayList<Long> activitiesId, ArrayList<Long> availabilitiesId){
-        super(price, destinyId, hotelId, activitiesId, availabilitiesId);
+    public PremiumTravelPackages(double price, Long destinyId, Long hotelId, ArrayList<Long> activitiesId, ArrayList<Long> availabilitiesId, String image){
+        super(price, destinyId, hotelId, activitiesId, availabilitiesId, image);
     }
 
 }
