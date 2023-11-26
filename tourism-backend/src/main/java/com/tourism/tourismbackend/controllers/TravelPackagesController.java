@@ -25,7 +25,7 @@ public class TravelPackagesController{
     @PostMapping
     public ResponseEntity createTravelPackage(@RequestBody @Valid TravelPackageDTO data){
         try{
-            TravelPackages newTravelPackage = new TravelPackages(data.price(), data.destinyId(), data.hotelId(),data.activitiesId(),data.availabilitiesId(), data.image());
+            TravelPackages newTravelPackage = new TravelPackages(data.price(), data.destinyId(), data.hotelId(),data.activitiesId(),data.availabilitiesId());
             this.repository.save(newTravelPackage);
             return ResponseEntity.ok().build();
         }catch(IllegalArgumentException e) {

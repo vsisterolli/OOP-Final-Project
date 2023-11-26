@@ -15,13 +15,12 @@ import java.util.ArrayList;
 @DiscriminatorColumn(name = "package_type", discriminatorType = DiscriminatorType.STRING)
 public class TravelPackages {
 
-    public TravelPackages(double price, Long destinyId, Long hotelId,ArrayList<Long> activitiesId, ArrayList<Long> availabilitiesId, String image){
+    public TravelPackages(double price, Long destinyId, Long hotelId,ArrayList<Long> activitiesId, ArrayList<Long> availabilitiesId){
         this.price = price;
         this.destinyId = destinyId;
         this.hotelId = hotelId;
         this.activitiesId = activitiesId;
         this.availabilitiesId = availabilitiesId;
-        this.image = image;
     }
 
     @Id
@@ -86,13 +85,5 @@ public class TravelPackages {
 
     public void setAvailabilitiesId(ArrayList<Long> availabilitiesId) {
         this.availabilitiesId = availabilitiesId;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 }

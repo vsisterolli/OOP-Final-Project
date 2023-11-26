@@ -31,7 +31,7 @@ public class PremiumTravelPackagesController{
 
         try {
             premiumPackageService.validateData(data);
-            PremiumTravelPackages newTravelPackage = new PremiumTravelPackages(data.price(), data.destinyId(), data.hotelId(),data.activitiesId(),data.availabilitiesId(),data.image());
+            PremiumTravelPackages newTravelPackage = new PremiumTravelPackages(data.price(), data.destinyId(), data.hotelId(),data.activitiesId(),data.availabilitiesId());
             this.repository.save(newTravelPackage);
             return ResponseEntity.ok().build();
         } catch(IllegalArgumentException e) {
