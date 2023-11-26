@@ -2,12 +2,8 @@ package com.tourism.tourismbackend.services;
 
 import com.tourism.tourismbackend.dtos.PremiumTravelPackageDTO;
 import com.tourism.tourismbackend.models.Hotels;
-import com.tourism.tourismbackend.models.PremiumTravelPackages;
 import com.tourism.tourismbackend.repository.HotelsRepository;
-import jakarta.persistence.Transient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
