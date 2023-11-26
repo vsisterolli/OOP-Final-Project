@@ -15,6 +15,9 @@ import java.util.Date;
 public class Availabilities extends PeriodicObject {
     public Availabilities(Date iniDate, Date endDate, int qntd_disponivel)
     {
+        if(iniDate.after(endDate)) {
+            throw new IllegalArgumentException("Invalid dates: iniDate must be before endDate");
+        }
         this.iniDate = iniDate;
         this.endDate = endDate;
         this.qntd_disponivel = qntd_disponivel;

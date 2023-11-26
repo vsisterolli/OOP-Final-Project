@@ -29,10 +29,13 @@ public class AvailabilitiesController {
     @PostMapping
     public ResponseEntity register(@RequestBody @Valid AvailabilityDTO data) {
 
-        Availabilities newAvailability = new Availabilities(data.iniDate(), data.endDate(), data.qntd_disponivel());
+        try {
+            Availabilities newAvailability = new Availabilities(data.iniDate(), data.endDate(), data.qntd_disponivel());
+            this.repository.save(newAvailability);
+            return ResponseEntity.ok().build();
+        } catch(IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
 
-        this.repository.save(newAvailability);
-
-        return ResponseEntity.ok().build();
     }
 }
