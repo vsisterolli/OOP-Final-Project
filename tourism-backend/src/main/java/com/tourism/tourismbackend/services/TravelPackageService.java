@@ -1,22 +1,22 @@
 package com.tourism.tourismbackend.services;
 
+import com.tourism.tourismbackend.dtos.FullPackageDTO;
 import com.tourism.tourismbackend.dtos.PremiumTravelPackageDTO;
-import com.tourism.tourismbackend.models.Activities;
-import com.tourism.tourismbackend.models.Availabilities;
-import com.tourism.tourismbackend.models.Destinies;
-import com.tourism.tourismbackend.models.Hotels;
-import com.tourism.tourismbackend.repository.ActivitiesRepository;
-import com.tourism.tourismbackend.repository.AvailabilitiesRepository;
-import com.tourism.tourismbackend.repository.DestiniesRepository;
-import com.tourism.tourismbackend.repository.HotelsRepository;
+import com.tourism.tourismbackend.dtos.TravelPackageDTO;
+import com.tourism.tourismbackend.models.*;
+import com.tourism.tourismbackend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class TravelPackageService{
+
+    @Autowired
+    private TravelPackagesRepository travel_package_repository;
 
     @Autowired
     private HotelsRepository hotel_repository;
@@ -72,5 +72,28 @@ public class TravelPackageService{
             }
         }
 
+    }
+
+    public List<FullPackageDTO> getFullPackages() {
+        List<TravelPackages> packages = travel_package_repository.findAll();
+        List<FullPackageDTO> fullPackages = new ArrayList<FullPackageDTO>();
+        for(int i = 0; i < packages.size(); i++) {
+            TravelPackages currentPackage = packages.get(i);
+            Optional<Destinies> destiny = destiny_repository.findById(currentPackage.getDestinyId());
+            if(destiny.isEmpty())
+                continue;
+            FullPackageDTO fullpackage = new FullPackageDTO(
+                    currentPackage.getPrice(),
+                    currentPackage.getDestinyId(),
+                    currentPackage.getHotelId(),
+                    currentPackage.getActivitiesId(),
+                    currentPackage.getAvailabilitiesId(),
+                    destiny.get().getName(),
+                    destiny.get().getCategory(),
+                    destiny.get().getName()
+            );
+            fullPackages.add(fullpackage);
+        }
+        return fullPackages;
     }
 }

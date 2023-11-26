@@ -2,9 +2,11 @@ package com.tourism.tourismbackend.controllers;
 
 
 import com.tourism.tourismbackend.dtos.DeleteDTO;
+import com.tourism.tourismbackend.dtos.FullPackageDTO;
 import com.tourism.tourismbackend.dtos.TravelPackageDTO;
 import com.tourism.tourismbackend.models.TravelPackages;
 import com.tourism.tourismbackend.repository.TravelPackagesRepository;
+import com.tourism.tourismbackend.services.TravelPackageService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +19,12 @@ import java.util.List;
 public class TravelPackagesController{
     @Autowired
     private TravelPackagesRepository repository;
+    @Autowired
+    private TravelPackageService service;
 
     @GetMapping
-    public List<TravelPackages> getTravelPackages() {
-        return repository.findAll();
+    public List<FullPackageDTO> getTravelPackages() {
+        return service.getFullPackages();
     }
     @PostMapping
     public ResponseEntity createTravelPackage(@RequestBody @Valid TravelPackageDTO data){
