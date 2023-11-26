@@ -1,6 +1,7 @@
 package com.tourism.tourismbackend.models;
 
 import com.tourism.tourismbackend.dtos.RegisterDTO;
+import com.tourism.tourismbackend.models.enums.UserRoles;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,10 +20,11 @@ import java.util.List;
 @EqualsAndHashCode(of = "id")
 public class Users implements UserDetails {
 
-    public Users(String name, String email, String password) {
+    public Users(String name, String email, String password, UserRoles role) {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     @Id
@@ -38,9 +40,14 @@ public class Users implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private UserRoles role;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("AuthenticatedUser"));
+        return  role == UserRoles.USER ?
+                List.of(new SimpleGrantedAuthority("USER")) :
+                List.of(new SimpleGrantedAuthority("ADMIN"));
     }
 
     @Override
