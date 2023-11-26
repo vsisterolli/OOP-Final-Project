@@ -1,0 +1,10 @@
+main {
+    background-image: url("../../../public/bg-image.avif")
+}
+
+img {
+    border-radius: 16px;
+    width: 320px;
+    border: solid black 2px;
+    height: 220px;
+}
