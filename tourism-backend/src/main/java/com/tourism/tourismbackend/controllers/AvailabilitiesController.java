@@ -1,6 +1,7 @@
 package com.tourism.tourismbackend.controllers;
 
 import com.tourism.tourismbackend.dtos.AvailabilityDTO;
+import com.tourism.tourismbackend.dtos.DeleteDTO;
 import com.tourism.tourismbackend.dtos.RegisterDTO;
 import com.tourism.tourismbackend.models.Availabilities;
 import com.tourism.tourismbackend.models.Users;
@@ -37,5 +38,11 @@ public class AvailabilitiesController {
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
 
+    }
+
+    @DeleteMapping
+    public ResponseEntity register(@RequestBody @Valid DeleteDTO data) {
+        this.repository.deleteById(data.id());
+        return ResponseEntity.ok().build();
     }
 }

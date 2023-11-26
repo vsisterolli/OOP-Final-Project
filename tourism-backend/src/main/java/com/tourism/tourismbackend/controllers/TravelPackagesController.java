@@ -1,6 +1,7 @@
 package com.tourism.tourismbackend.controllers;
 
 
+import com.tourism.tourismbackend.dtos.DeleteDTO;
 import com.tourism.tourismbackend.dtos.TravelPackageDTO;
 import com.tourism.tourismbackend.models.TravelPackages;
 import com.tourism.tourismbackend.repository.TravelPackagesRepository;
@@ -30,4 +31,9 @@ public class TravelPackagesController{
         return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping
+    public ResponseEntity register(@RequestBody @Valid DeleteDTO data) {
+        this.repository.deleteById(data.id());
+        return ResponseEntity.ok().build();
+    }
 }

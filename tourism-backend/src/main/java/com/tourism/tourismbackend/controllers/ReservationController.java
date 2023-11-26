@@ -1,5 +1,6 @@
 package com.tourism.tourismbackend.controllers;
 
+import com.tourism.tourismbackend.dtos.DeleteDTO;
 import com.tourism.tourismbackend.dtos.ReservationDTO;
 import com.tourism.tourismbackend.models.Reservation;
 import com.tourism.tourismbackend.repository.ReservationRepository;
@@ -31,5 +32,11 @@ public class ReservationController {
         } catch(IllegalArgumentException e){
             return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
+    }
+
+    @DeleteMapping
+    public ResponseEntity register(@RequestBody @Valid DeleteDTO data) {
+        this.repository.deleteById(data.id());
+        return ResponseEntity.ok().build();
     }
 }
