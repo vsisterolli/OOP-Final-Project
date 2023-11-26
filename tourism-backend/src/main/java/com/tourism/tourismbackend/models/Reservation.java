@@ -36,14 +36,6 @@ public class Reservation extends PeriodicObject {
     @Column(nullable = false)
     private Long travelpackageId;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Long getUserId() {
         return userId;
     }
