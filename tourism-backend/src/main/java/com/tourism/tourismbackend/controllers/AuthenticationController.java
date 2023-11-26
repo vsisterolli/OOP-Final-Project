@@ -4,6 +4,7 @@ import com.tourism.tourismbackend.dtos.AuthenticationDTO;
 import com.tourism.tourismbackend.dtos.LoginResponseDTO;
 import com.tourism.tourismbackend.dtos.RegisterDTO;
 import com.tourism.tourismbackend.models.Users;
+import com.tourism.tourismbackend.models.enums.UserRoles;
 import com.tourism.tourismbackend.repository.UsersRepository;
 import com.tourism.tourismbackend.services.TokenServices;
 import jakarta.validation.Valid;
@@ -33,8 +34,9 @@ public class AuthenticationController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
         var token = tokenServices.generateToken((Users) auth.getPrincipal());
+        var user = repository.findByEmail(data.email());
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        return ResponseEntity.ok(new LoginResponseDTO(token, user.getPassword(), data.email()));
     }
 
     @PostMapping("/register")
@@ -45,7 +47,7 @@ public class AuthenticationController {
 
         String newPassword = new BCryptPasswordEncoder().encode(data.password());
 
-        Users newUser = new Users(data.name(), data.email(), newPassword);
+        Users newUser = new Users(data.name(), data.email(), newPassword, UserRoles.USER);
 
         this.repository.save(newUser);
 
