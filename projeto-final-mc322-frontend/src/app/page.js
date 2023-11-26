@@ -11,7 +11,7 @@ export default function LoginPage() {
 
   const httpClient = instance;
   const { replace } = useRouter()
-
+  
   const [formValue, setFormValue] = useState({
     "email": "",
     "password": "",
@@ -25,11 +25,11 @@ export default function LoginPage() {
     event.preventDefault();
 
     toast("Logging in...")
-    instance.post("/auth/register", formValue)
+    instance.post("/auth/login", formValue)
       .then((response) => {
         localStorage.setItem("userDetails", JSON.stringify(response.data));
-        toast.success('Logged in successfully!')
         replace("/main")
+        toast.success('Logged in successfully!')
       })
       .catch((e) => toast.error('Invalid user information.'));
   }
