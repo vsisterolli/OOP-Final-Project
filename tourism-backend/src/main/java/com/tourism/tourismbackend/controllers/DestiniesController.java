@@ -32,7 +32,7 @@ public class DestiniesController {
         if(this.repository.findByName(data.name()) != null)
             return ResponseEntity.badRequest().build();
 
-        Destinies newDestiny = new Destinies(data.name(), data.category());
+        Destinies newDestiny = new Destinies(data.name(), data.category(), data.image());
 
         this.repository.save(newDestiny);
 

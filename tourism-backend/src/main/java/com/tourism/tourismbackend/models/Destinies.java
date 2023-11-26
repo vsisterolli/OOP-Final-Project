@@ -21,9 +21,10 @@ import java.util.List;
 @EqualsAndHashCode(of = "id")
 public class Destinies {
 
-    public Destinies(String name, DestinyCategory category) {
+    public Destinies(String name, DestinyCategory category, String image) {
         this.name = name;
         this.category = category;
+        this.image = image;
     }
 
     @Id
@@ -35,6 +36,9 @@ public class Destinies {
 
     @Column(nullable = false)
     private DestinyCategory category;
+
+    @Column(nullable = false)
+    private String image;
 
     public String getName() {
         return this.name;
@@ -50,5 +54,13 @@ public class Destinies {
 
     public void setCategory(DestinyCategory category) {
         this.category = category;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
