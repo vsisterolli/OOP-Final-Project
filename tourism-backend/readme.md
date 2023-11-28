@@ -54,4 +54,5 @@ Useful methods, like token handling, authorization, etc.
 - There is no migration setted up, so the database will initially be empty and no data would be available to be displayed on the front end, you can create using the post routes with an admin user.
 
 ## Project UML
-![image](https://github.com/vsisterolli/OOP-Final-Project/assets/65525681/1175011f-6447-46ab-adb8-92e62f91059f)
+![Diagrama em branco](https://github.com/vsisterolli/OOP-Final-Project/assets/65525681/2160af8b-2d32-4f77-a50b-7b64c9538507)
+
