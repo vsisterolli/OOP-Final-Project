@@ -46,33 +46,12 @@ Database communication layer. It has the methods to gather / insert data on the 
 # services
 Useful methods, like token handling, authorization, etc.
 
-## Implemented routes documentation
+# Authorization
+- All DELETE/POST routes are blocked by default (except authentication/reservation). You need to create an ADMIN user, just change on "AuthenticationController" file from "Role.USER" to "Role.ADMIN" and create a user.
+- The authentication is made through use of Bearer tokens, so, create a header "Authentication" with value "Bearer " + token for each request.
 
-# POST /auth/register 
-```
-Create an user
-Expects a JSON:
+# Important
+- There is no migration setted up, so the database will initially be empty and no data would be available to be displayed on the front end, you can create using the post routes with an admin user.
 
-{
-  name: String,
-  email: String,
-  password: String,
-}
-
-Returns 400 BAD REQUEST if email is already registered.
-200 Created if the user was created succesfully.
-```
-
-# POST /auth/login
-```
-Login the user
-Expects a JSON:
-
-{
-   email: String,
-   password: String
-}
-
-Returns 403 forbidden if email and password doesn't match / doesn't exist.
-Returns a JWT token if successfull.
-```
+## Project UML
+![image](https://github.com/vsisterolli/OOP-Final-Project/assets/65525681/1175011f-6447-46ab-adb8-92e62f91059f)
