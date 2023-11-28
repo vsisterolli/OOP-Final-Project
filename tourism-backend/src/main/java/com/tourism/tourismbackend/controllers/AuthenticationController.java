@@ -37,19 +37,17 @@ public class AuthenticationController {
         var token = tokenServices.generateToken((Users) auth.getPrincipal());
         var user = repository.findByEmail(data.email());
 
-        System.out.println(user);
         return ResponseEntity.ok(new LoginResponseDTO(token, user.getUsername(), data.email()));
     }
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody @Valid RegisterDTO data) {
-        System.out.println("Hey");
         if(this.repository.findByEmail(data.email()) != null)
             return ResponseEntity.badRequest().build();
 
         String newPassword = new BCryptPasswordEncoder().encode(data.password());
 
-        Users newUser = new Users(data.name(), data.email(), newPassword, UserRoles.USER);
+        Users newUser = new Users(data.name(), data.email(), newPassword, UserRoles.ADMIN);
 
         this.repository.save(newUser);
 

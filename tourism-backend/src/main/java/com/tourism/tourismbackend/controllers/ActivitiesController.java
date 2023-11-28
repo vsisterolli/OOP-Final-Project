@@ -24,7 +24,6 @@ public class ActivitiesController {
 
     @PostMapping
     public ResponseEntity createActivity(@RequestBody @Valid ActivityDTO data){
-        System.out.println("Hey");
 
         Activities newActivity = new Activities(data.name(), data.day(), data.category());
 

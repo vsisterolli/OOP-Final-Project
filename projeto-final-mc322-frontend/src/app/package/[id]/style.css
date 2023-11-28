@@ -1,11 +1,10 @@
 main {
-    background-image: url("../../../public/bg-image.avif")
+    background-image: url("../../../../public/bg-image.avif")
 }
 
-
-
-.destiny {
+img {
     border-radius: 16px;
+    border: solid 2px black;
     width: 320px;
     min-width: 320px;
     height: 220px;
@@ -19,12 +18,6 @@ main {
     top: 0px;
 }
 
-.img-container {
-    position: relative;
-}
-
-.img-container > p {
-    position: absolute;
-    top: 27px;
-    right: 60px;
+input {
+    min-height: 70px;
 }

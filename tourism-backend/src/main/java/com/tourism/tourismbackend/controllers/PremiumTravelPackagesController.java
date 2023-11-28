@@ -2,6 +2,7 @@ package com.tourism.tourismbackend.controllers;
 
 
 import com.tourism.tourismbackend.dtos.DeleteDTO;
+import com.tourism.tourismbackend.dtos.FullPackageDTO;
 import com.tourism.tourismbackend.dtos.PremiumTravelPackageDTO;
 import com.tourism.tourismbackend.models.Availabilities;
 import com.tourism.tourismbackend.models.PremiumTravelPackages;
@@ -23,8 +24,8 @@ public class PremiumTravelPackagesController{
     private PremiumPackageService premiumPackageService;
 
     @GetMapping
-    public List<PremiumTravelPackages> getPremiumTravelPackages() {
-        return repository.findAll();
+    public List<FullPackageDTO> getPremiumTravelPackages() {
+        return premiumPackageService.getFullPackages();
     }
     @PostMapping
     public ResponseEntity createPremiumTravelPackage(@RequestBody @Valid PremiumTravelPackageDTO data){

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 @Entity
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-@DiscriminatorColumn(name = "package_type", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "packageType", discriminatorType = DiscriminatorType.STRING)
 public class TravelPackages {
 
     public TravelPackages(double price, Long destinyId, Long hotelId,ArrayList<Long> activitiesId, ArrayList<Long> availabilitiesId){
@@ -26,6 +26,9 @@ public class TravelPackages {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(insertable = false, updatable = false)
+    private String packageType;
 
     @Column(nullable = false)
     private double price;
@@ -41,9 +44,6 @@ public class TravelPackages {
 
     @Column(nullable = false)
     private ArrayList<Long> availabilitiesId = new ArrayList<Long>();
-
-    @Column(nullable = false)
-    private String image;
 
     //Getters and setters
 

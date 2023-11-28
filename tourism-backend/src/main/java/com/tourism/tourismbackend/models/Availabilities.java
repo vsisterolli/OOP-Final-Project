@@ -13,14 +13,14 @@ import java.util.Date;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Availabilities extends PeriodicObject {
-    public Availabilities(Date iniDate, Date endDate, int qntd_disponivel)
+    public Availabilities(Date iniDate, Date endDate, int available)
     {
         if(iniDate.after(endDate)) {
             throw new IllegalArgumentException("Invalid dates: iniDate must be before endDate");
         }
         this.iniDate = iniDate;
         this.endDate = endDate;
-        this.qntd_disponivel = qntd_disponivel;
+        this.available = available;
     }
 
     @Id
@@ -28,13 +28,13 @@ public class Availabilities extends PeriodicObject {
     private Long id;
 
     @Column(nullable = false)
-    private int qntd_disponivel;
+    private int available;
 
-    public int getQntd_disponivel() {
-        return this.qntd_disponivel;
+    public int getAvailable() {
+        return this.available;
     }
 
-    public void setQntd_disponivel(int qntd_disponivel) {
-        this.qntd_disponivel = qntd_disponivel;
+    public void setAvailable(int available) {
+        this.available = available;
     }
 }

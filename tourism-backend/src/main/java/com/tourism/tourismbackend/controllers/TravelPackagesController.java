@@ -3,6 +3,7 @@ package com.tourism.tourismbackend.controllers;
 
 import com.tourism.tourismbackend.dtos.DeleteDTO;
 import com.tourism.tourismbackend.dtos.FullPackageDTO;
+import com.tourism.tourismbackend.dtos.PackageDetailsDTO;
 import com.tourism.tourismbackend.dtos.TravelPackageDTO;
 import com.tourism.tourismbackend.models.TravelPackages;
 import com.tourism.tourismbackend.repository.TravelPackagesRepository;
@@ -26,9 +27,16 @@ public class TravelPackagesController{
     public List<FullPackageDTO> getTravelPackages() {
         return service.getFullPackages();
     }
+
+    @GetMapping("/{id}")
+    public PackageDetailsDTO getTravelPackageById(@PathVariable Long id) {
+        return service.getPackageDetails(id);
+    }
+
     @PostMapping
     public ResponseEntity createTravelPackage(@RequestBody @Valid TravelPackageDTO data){
         try{
+            service.validateData(data);
             TravelPackages newTravelPackage = new TravelPackages(data.price(), data.destinyId(), data.hotelId(),data.activitiesId(),data.availabilitiesId());
             this.repository.save(newTravelPackage);
             return ResponseEntity.ok().build();

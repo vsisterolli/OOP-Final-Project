@@ -5,6 +5,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.tourism.tourismbackend.models.Users;
+import com.tourism.tourismbackend.models.enums.UserRoles;
+import com.tourism.tourismbackend.repository.UsersRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,9 @@ public class TokenServices {
 
     @Value("${api.security.token.secret}")
     String secret;
+
+    @Autowired
+    private UsersRepository usersRepository;
 
     public String generateToken(Users user) {
         try {
@@ -40,4 +46,10 @@ public class TokenServices {
         }
     }
 
+    public Long getUserIdByToken(String token) {
+        String email = getUserEmailByToken(token);
+        if(email == null)
+            return null;
+        return usersRepository.findByEmail(email).getId();
+    }
 }

@@ -15,7 +15,7 @@ import java.util.Date;
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class Reservation extends PeriodicObject {
-    public Reservation(Date iniDate, Date endDate, Long userId, Long travelpackageId){
+    public Reservation(Date iniDate, Date endDate, Long userId, Long travelPackageId){
         if(iniDate.after(endDate)) {
             throw new IllegalArgumentException("Invalid dates: iniDate must be before endDate");
         }
@@ -23,7 +23,7 @@ public class Reservation extends PeriodicObject {
         this.iniDate = iniDate;
         this.endDate = endDate;
         this.userId = userId;
-        this.travelpackageId = travelpackageId;
+        this.travelPackageId = travelPackageId;
     }
 
     @Id
@@ -34,7 +34,7 @@ public class Reservation extends PeriodicObject {
     private Long userId;
 
     @Column(nullable = false)
-    private Long travelpackageId;
+    private Long travelPackageId;
 
     public Long getUserId() {
         return userId;
@@ -44,11 +44,11 @@ public class Reservation extends PeriodicObject {
         this.userId = userId;
     }
 
-    public Long getTravelpackageId() {
-        return travelpackageId;
+    public Long gettravelPackageId() {
+        return travelPackageId;
     }
 
-    public void setTravelpackageId(Long travelpackageId) {
-        this.travelpackageId = travelpackageId;
+    public void settravelPackageId(Long travelPackageId) {
+        this.travelPackageId = travelPackageId;
     }
 }

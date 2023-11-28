@@ -31,13 +31,14 @@ public class SecurityFilter extends OncePerRequestFilter {
             var email = tokenServices.getUserEmailByToken(token);
             UserDetails user = usersRepository.findByEmail(email);
 
+
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);
     }
 
-    private String recoverToken(HttpServletRequest request) {
+    public String recoverToken(HttpServletRequest request) {
         var authHeader = request.getHeader("Authorization");
         if(authHeader == null)
             return null;

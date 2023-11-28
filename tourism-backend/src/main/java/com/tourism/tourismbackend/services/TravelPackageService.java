@@ -1,6 +1,7 @@
 package com.tourism.tourismbackend.services;
 
 import com.tourism.tourismbackend.dtos.FullPackageDTO;
+import com.tourism.tourismbackend.dtos.PackageDetailsDTO;
 import com.tourism.tourismbackend.dtos.PremiumTravelPackageDTO;
 import com.tourism.tourismbackend.dtos.TravelPackageDTO;
 import com.tourism.tourismbackend.models.*;
@@ -8,7 +9,9 @@ import com.tourism.tourismbackend.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +34,7 @@ public class TravelPackageService{
     private AvailabilitiesRepository availabilities_repository;
 
 
-    public void validateData(PremiumTravelPackageDTO data) {
+    public <T extends TravelPackageDTO> void validateData(T data) {
         double price = data.price();
         Long hotelId = data.hotelId();
         Long destinyId = data.destinyId();
@@ -75,14 +78,30 @@ public class TravelPackageService{
     }
 
     public List<FullPackageDTO> getFullPackages() {
-        List<TravelPackages> packages = travel_package_repository.findAll();
+        List<TravelPackages> packages = travel_package_repository.findByPackageTypeNot("PREMIUM");
         List<FullPackageDTO> fullPackages = new ArrayList<FullPackageDTO>();
+
         for(int i = 0; i < packages.size(); i++) {
             TravelPackages currentPackage = packages.get(i);
             Optional<Destinies> destiny = destiny_repository.findById(currentPackage.getDestinyId());
             if(destiny.isEmpty())
                 continue;
+
+            int allAmount = 0;
+            for(int j = 0; j < currentPackage.getAvailabilitiesId().size(); j++) {
+                Long currentAvailabilityId = currentPackage.getAvailabilitiesId().get(j);
+                Optional<Availabilities> currentAvailability = availabilities_repository.findById(currentAvailabilityId);
+                if(currentAvailability.isPresent())
+                    allAmount += currentAvailability.get().getAvailable();
+
+                if(allAmount > 0)
+                    break;
+            }
+            if(allAmount == 0)
+                continue;
+
             FullPackageDTO fullpackage = new FullPackageDTO(
+                    currentPackage.getId(),
                     currentPackage.getPrice(),
                     currentPackage.getDestinyId(),
                     currentPackage.getHotelId(),
@@ -90,10 +109,43 @@ public class TravelPackageService{
                     currentPackage.getAvailabilitiesId(),
                     destiny.get().getName(),
                     destiny.get().getCategory(),
-                    destiny.get().getName()
+                    destiny.get().getImage()
             );
             fullPackages.add(fullpackage);
         }
         return fullPackages;
+    }
+
+    public PackageDetailsDTO getPackageDetails(Long id) {
+        Optional<TravelPackages> optPack = travel_package_repository.findById(id);
+        if(optPack.isEmpty())
+            return null;
+        TravelPackages pack = optPack.get();
+
+        ArrayList<Availabilities> availabilities = new ArrayList<Availabilities>();
+        for(int i = 0; i < pack.getAvailabilitiesId().size(); i++) {
+            Optional<Availabilities> availability = availabilities_repository.findById(pack.getAvailabilitiesId().get(i));
+            availability.ifPresent(availabilities::add);
+        }
+
+        ArrayList<Activities> activities = new ArrayList<Activities>();
+        for(int i = 0; i < pack.getActivitiesId().size(); i++) {
+            Optional<Activities> activity = activities_repository.findById(pack.getActivitiesId().get(i));
+            activity.ifPresent(activities::add);
+        }
+
+        Destinies destiny = destiny_repository.findById(pack.getDestinyId()).orElse(null);
+        Hotels hotel = hotel_repository.findById(pack.getHotelId()).orElse(null);
+
+        return new PackageDetailsDTO(
+                pack.getId(),
+                pack.getPrice(),
+                destiny,
+                hotel,
+                activities,
+                availabilities,
+                pack.getPackageType()
+        );
+
     }
 }

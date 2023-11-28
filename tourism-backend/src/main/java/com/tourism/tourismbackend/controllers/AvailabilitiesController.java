@@ -31,7 +31,7 @@ public class AvailabilitiesController {
     public ResponseEntity register(@RequestBody @Valid AvailabilityDTO data) {
 
         try {
-            Availabilities newAvailability = new Availabilities(data.iniDate(), data.endDate(), data.qntd_disponivel());
+            Availabilities newAvailability = new Availabilities(data.iniDate(), data.endDate(), data.available());
             this.repository.save(newAvailability);
             return ResponseEntity.ok().build();
         } catch(IllegalArgumentException e) {

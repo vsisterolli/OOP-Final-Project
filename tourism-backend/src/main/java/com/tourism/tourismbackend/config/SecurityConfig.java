@@ -27,6 +27,15 @@ public class SecurityConfig {
              .csrf(csrf -> csrf.disable())
              .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
              .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+             .authorizeHttpRequests(authorize -> authorize
+                     .requestMatchers(HttpMethod.GET,  "/*").permitAll()
+                     .requestMatchers(HttpMethod.GET,  "/packages/*").permitAll()
+                     .requestMatchers(HttpMethod.POST,  "/reservations").permitAll()
+                     .requestMatchers(HttpMethod.POST,  "/auth/*").permitAll()
+                     .requestMatchers(HttpMethod.DELETE, "/**").hasAuthority("ADMIN")
+                     .requestMatchers(HttpMethod.POST, "/**").hasAuthority("ADMIN")
+                     .anyRequest().permitAll()
+             )
              .build();
 
     }
